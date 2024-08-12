@@ -1,0 +1,36 @@
+:root{
+	--main-background-color : #FAFAFA;
+	--main-font-color : #484B6A;
+	--blocquote-background-color : #E4E5F1;
+	--blocquote-tab-color : #9394A5;
+	--code-background-color : #484B6A77;
+}
+
+*{
+	margin : 0;
+	padding : 0;
+	box-sizing : border-box;
+	font-family : Verdana, sans-serif;
+}
+
+body {
+	background-color : var(--main-background-color);
+}
+
+.generated-page{
+	background-color : var(--main-background-color);
+	padding : 2rem;
+}
+
+.generated-page blockquote{
+	background-color : var(--blocquote-background-color);
+	border-left : 6px solid var(--blocquote-tab-color);
+	padding : 1rem;
+}
+
+.generated-page code{
+	background-color : var(--code-background-color);
+	padding : 2px;
+	font-size : 0.75rem;
+	text-align : center;
+}
