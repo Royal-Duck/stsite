@@ -50,8 +50,8 @@ def compile_line(line : Line) -> str: # TODO : support escaping the tags
     final_line = final_line.replace("%[bold]", "<strong>")
     final_line = final_line.replace("%[/bold]", "</strong>")
 
-    if line.quatation:
-        for i in range(line.quatation):
+    if line.quotation:
+        for i in range(line.quotation):
             final_line = in_tag_text(final_line[:-1], "blockquote")
             final_line += "\n"
     if line.header:
