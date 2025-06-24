@@ -1,8 +1,7 @@
 import sys, os, pickle
 from parser import Line
 
-def main():
-    arguments : list[str] = sys.argv[1:]
+def main(arguments : list[str]):
 
     if len(arguments) <= 3:
         print("\033[31;1mERROR : NOT ENOUGH ARGUMENTS (copiler --help for help)", file=sys.stderr)
@@ -70,4 +69,4 @@ def save_line_to_file(line : str, file : str):
         output_file.write(line)
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
