@@ -7,13 +7,12 @@ class Line:
     def __init__(self : Self) -> None:    
         self.indentation_level : int = 0
         self.header : int = 0
-        self.quatation : int = 0
+        self.quotation : int = 0
         self.text : str = ""
 
 lines : list[Line] = []
 
-def main():
-    arguments : list[str] = sys.argv[1:]
+def main(arguments : list[str]):
 
     if len(arguments) <= 3:
         print("\033[31;1mERROR : NOT ENOUGH ARGUMENTS (parser --help for help)", file=sys.stderr)
@@ -101,4 +100,4 @@ def save_lines_to_file(input_file : str, output_file : str, human_readable : boo
             pickle.dump(lines, output_buffer)
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

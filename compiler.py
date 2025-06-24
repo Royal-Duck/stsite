@@ -9,7 +9,6 @@ def main(arguments : list[str]):
 
     input_file : str = ""
     output_file : str = ""
-    human_readable : bool = False
 
     if (not "-i" in arguments) or (not "-o" in arguments):
         print("\033[31;1mERROR : INPUT OR OUTPUT NOT SPECIFIED (compiler --help for help)", file=sys.stderr)
@@ -23,7 +22,7 @@ def main(arguments : list[str]):
         exit(3)
 
     if not os.path.exists(output_file):
-        try : temp_file : TextIO = open(output_file, "x")
+        try : temp_file = open(output_file, "x")
         except :
             print("\033[31;1mERROR : FAILED TO CREATE OUTPUT FILE (compiler --help for help)", file=sys.stderr)
             exit(4)
@@ -31,12 +30,12 @@ def main(arguments : list[str]):
     
     clear_file(output_file)
     save_line_to_file("<link href=\"./default_theme.css\" type=\"text/css\" rel=\"stylesheet\"/>", output_file)
-    save_line_to_file("<div class=\"generated-page\">", output_file)
-    with open(input_file, "rb") as input_file:
-        lines = pickle.load(input_file)
+    save_line_to_file("<div class=\"generated-page\">\n", output_file)
+    with open(input_file, "rb") as input_f:
+        lines = pickle.load(input_f)
         for line in lines:
             save_line_to_file(compile_line(line), output_file)
-    save_line_to_file("</div>", output_file)
+    save_line_to_file("\n</div>\n", output_file)
 
 def in_tag_text(text : str, tag : str) -> str:
     return f"<{tag}>{text}</{tag}>"
@@ -49,9 +48,11 @@ def compile_line(line : Line) -> str: # TODO : support escaping the tags
     final_line = final_line.replace("%[/italic]", "</em>")
     final_line = final_line.replace("%[bold]", "<strong>")
     final_line = final_line.replace("%[/bold]", "</strong>")
+    if "".join(final_line) != "\n":
+        final_line = in_tag_text(final_line[:-1], "p")
 
     if line.quotation:
-        for i in range(line.quotation):
+        for _ in range(line.quotation):
             final_line = in_tag_text(final_line[:-1], "blockquote")
             final_line += "\n"
     if line.header:
